@@ -9,20 +9,26 @@ const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL,
 });
 const sagaMiddleware = createSagaMiddleware();
-
-const initialState = {};
-const enhancers = [];
-
-if (typeof window.__REDUX_DEVTOOLS_EXTENSION__ === "function") {
-  enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
-}
+const saveState = (state) => {
+  localStorage.setItem("rbinfopro", JSON.stringify(state));
+};
+const loadState = () => {
+  const state = localStorage.getItem("rbinfopro");
+  if (state) {
+    return JSON.parse(state);
+  }
+  return {};
+};
 
 const store = createStore(
   rootReducer,
-  initialState,
+  loadState(),
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
+
 // then run the saga
 sagaMiddleware.run(rootSaga);
-
+store.subscribe(() => {
+  saveState(store.getState());
+});
 export { store, history };

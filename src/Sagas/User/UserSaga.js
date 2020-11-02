@@ -1,8 +1,13 @@
 import { takeLatest, put, call, all } from "redux-saga/effects";
 
-import { GET_ALL_USERS, getUsersSuccess } from "../../Actions/User/UserActions";
+import {
+  GET_ALL_USERS,
+  getUsersSuccess,
+  ADD_USER,
+  addUserSuccess,
+} from "../../Actions/User/UserActions";
 
-import { getUsers } from "../../Services/User/UserService";
+import { getUsers, addUser } from "../../Services/User/UserService";
 
 function* getUsersSaga() {
   try {
@@ -14,7 +19,20 @@ function* getUsersSaga() {
     console.log(error);
   }
 }
+function* addUsersSaga({ payload }) {
+  try {
+    const userAdd = yield call(addUser, payload);
+    if (userAdd) {
+      yield put(addUserSuccess(payload));
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export default function* localContractsWatcher() {
-  yield all([takeLatest(GET_ALL_USERS, getUsersSaga)]);
+  yield all([
+    takeLatest(GET_ALL_USERS, getUsersSaga),
+    takeLatest(ADD_USER, addUsersSaga),
+  ]);
 }

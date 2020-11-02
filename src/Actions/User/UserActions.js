@@ -12,3 +12,19 @@ export function getUsersSuccess(data) {
     payload: data,
   };
 }
+
+export const ADD_USER = "user/ADD_USER";
+export function addUser(user) {
+  return {
+    type: ADD_USER,
+    payload: user,
+  };
+}
+
+export const ADD_USER_SUCCESS = "user/ADD_USER_SUCCESS";
+export function addUserSuccess(user) {
+  return {
+    type: ADD_USER_SUCCESS,
+    payload: user,
+  };
+}
