@@ -28,3 +28,19 @@ export function addUserSuccess(user) {
     payload: user,
   };
 }
+
+export const DELETE_USER = "user/DELETE_USER";
+export function deleteUser(id) {
+  return {
+    type: DELETE_USER,
+    payload: id,
+  };
+}
+
+export const DELETE_USER_SUCCESS = "user/DELETE_USER_SUCCESS";
+export function deleteUserSuccess(user) {
+  return {
+    type: DELETE_USER_SUCCESS,
+    payload: user,
+  };
+}
