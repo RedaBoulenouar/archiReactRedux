@@ -68,3 +68,25 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+var result = await _dcmCockpitDbContext.ProjectSecuritizations
+        .Where(ps => ps.Id == id)
+        .Include(ps => ps.ParticipatingBanks)
+            .ThenInclude(pb => pb.LeadManager)
+        .Include(ps => ps.Green)
+        .Include(ps => ps.Issuer)
+        .Include(ps => ps.AssetClass)
+        .Include(ps => ps.AssetType)
+        .Include(ps => ps.OriginGroup)
+        .Include(ps => ps.CoverageUsers)
+            .ThenInclude(cu => cu.User)
+        .Include(ps => ps.DealCaptain)
+            .ThenInclude(dc => dc.User)
+        .Include(ps => ps.SecuritizationUsers)
+            .ThenInclude(su => su.User)
+        .Include(ps => ps.LegalUsers)
+            .ThenInclude(lu => lu.User)
+        .Include(ps => ps.SyndicateUsers)
+            .ThenInclude(sy => sy.User)
+        .Include(ps => ps.Tranches)
+        .SingleOrDefaultAsync();
+
